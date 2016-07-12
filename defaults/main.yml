@@ -1,0 +1,19 @@
+---
+postfix_command_directory: /usr/sbin
+postfix_debug_peer_level: 2
+postfix_daemon_directory: /usr/libexec/postfix
+postfix_data_directory: /var/lib/postfix
+postfix_html_directory: 'no'
+postfix_inet_interfaces: [ 'localhost' ]
+postfix_inet_protocols: all
+postfix_manpage_directory: /usr/share/man
+postfix_mail_owner: postfix
+postfix_mailq_path: /usr/bin/mailq.postfix
+postfix_newaliases_path: /usr/bin/newaliases.postfix
+postfix_packages: []
+postfix_readme_directory: /usr/share/doc/postfix-2.10.1/README_FILES
+postfix_sample_directory: /usr/share/doc/postfix-2.10.1/samples
+postfix_sendmail_path: /usr/sbin/sendmail.postfix
+postfix_setgid_group: postdrop
+postfix_queue_directory: /var/spool/postfix
+postfix_unknown_local_recipient_reject_code: 550
