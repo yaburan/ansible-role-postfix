@@ -20,7 +20,7 @@
         mode: "{{ item.mode }}"
       notify: restart postfix
       with_items:
-        - { src: main.cf.j2, dest: /etc/postfix/main.cf, mode: 0644 }
+        - { src: main.cf.j2, dest: /etc/postfix/main.cf, mode: '0644' }
 
     - name: Enable and start the postfix service on boot
       service:
