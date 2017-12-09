@@ -1,25 +1,33 @@
 ---
-- name: Install postfix packages
+- name: Ensure that the postfix package is installed
   tags: postfix
-  yum: name={{ item }}
-       state=present
-       update_cache=yes
+  become: true
+  yum:
+    name: "{{ item }}"
+    state: present
   register: postfix_yum
   with_items:
     - postfix
     - "{{ postfix_packages }}"
 
 - block:
-    - name: Configure main.cf
-      template: src=main.cf.j2
-                dest=/etc/postfix/main.cf
-                owner=root
-                group=root
-                mode=0644
+    - name: Applying postfix configurations
+      template:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        owner: root
+        group: root
+        mode: "{{ item.mode }}"
       notify: restart postfix
-    - name: Enable and start the postfix service
-      service: name=postfix
-               enabled=yes
-               state=started
+      with_items:
+        - { src: main.cf.j2, dest: /etc/postfix/main.cf, mode: 0644 }
+
+    - name: Enable and start the postfix service on boot
+      service:
+        enabled: yes
+        name: postfix
+        state: started
   tags: postfix
+  become: true
   when: postfix_yum|success
+...
