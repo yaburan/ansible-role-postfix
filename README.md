@@ -13,7 +13,7 @@ None
 Available variables are listed below, along with default values:
 
     postfix_version: 2.10.1
-    postfix_pacakges: []
+    postfix_packages: []
     postfix_parameters:
       alias_database: 'hash:/etc/aliases'
       alias_maps: 'hash:/etc/aliases'

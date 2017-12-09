@@ -1,5 +1,5 @@
 ---
-- name: Ensure that the postfix package is installed
+- name: Ensure that the postfix packages are installed
   tags: postfix
   become: true
   yum:
