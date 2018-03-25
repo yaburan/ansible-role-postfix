@@ -1,5 +1,4 @@
 ---
-postfix_version: 2.10.1
 postfix_packages: []
 postfix_parameters:
   alias_database: 'hash:/etc/aliases'
