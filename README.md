@@ -52,18 +52,41 @@ None
       roles:
         - role: linuxhq.postfix
           postfix_generic_maps:
-            root: email@address
+            root: email@address.com
           postfix_packages:
             - cyrus-sasl
             - cyrus-sasl-lib
             - cyrus-sasl-plain
           postfix_parameters:
-            smtp_sasl_auth_enable: True
-            smtp_sasl_password_maps: 'hash:/etc/postfix/sasl_passwd'
+            alias_database: 'hash:/etc/aliases'
+            alias_maps: 'hash:/etc/aliases'
+            command_directory: /usr/sbin
+            daemon_directory: /usr/libexec/postfix
+            data_directory: /var/lib/postfix
+            inet_interfaces: localhost
+            inet_protocols: all
+            mail_owner: postfix
+            mailq_path: /usr/bin/mailq.postfix
+            manpage_directory: /usr/share/man
+            myhostname: "{{ inventory_hostname }}"
+            mydomain: "{{ inventory_hostname }}"
+            mynetworks:
+              - 192.168.0.0/24
+            newaliases_path: /usr/bin/newaliases.postfix
+            relayhost: '[email.server.com]:587'
+            sendmail_path: /usr/sbin/sendmail.postfix
+            setgid_group: postdrop
+            smtp_generic_maps: hash:/etc/postfix/generic
+            smtp_sasl_auth_enable: true
+            smtp_sasl_password_maps: hash:/etc/postfix/sasl_passwd
             smtp_sasl_security_options: noanonymous
-            smtp_use_tls: True
-          postfix_sasl_username: email@address
-          postfix_sasl_password: kkpgfccailg5c
+            smtp_tls_CAfile: /etc/ssl/certs/ca-bundle.crt
+            smtp_tls_security_level: encrypt
+            smtp_use_tls: true
+            queue_directory: /var/spool/postfix
+            unknown_local_recipient_reject_code: 550
+        postfix_sasl_password: v9bzc8emfbdqu
+        postfix_sasl_username: email@address.com
 
 ## License
 
