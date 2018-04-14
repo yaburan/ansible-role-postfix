@@ -1,0 +1,13 @@
+---
+- name: Attempting to fetch postfix version from RPM database
+  args:
+    warn: no
+  command: |
+    rpm -q --queryformat %{version} postfix
+  register: postfix_rpm
+
+- name: Setting postfix_version fact
+  set_fact:
+    postfix_version: "{{ postfix_rpm.stdout }}"
+  when: postfix_rpm is success
+...

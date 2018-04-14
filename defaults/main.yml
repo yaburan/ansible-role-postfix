@@ -1,4 +1,5 @@
 ---
+postfix_generic_maps: {}
 postfix_packages: []
 postfix_parameters:
   alias_database: 'hash:/etc/aliases'

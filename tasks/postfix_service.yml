@@ -1,0 +1,7 @@
+---
+- name: Ensure that postfix is started and enabled on boot
+  service:
+    enabled: yes
+    name: postfix
+    state: started
+...

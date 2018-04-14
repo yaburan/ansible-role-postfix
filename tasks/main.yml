@@ -10,41 +10,12 @@
     - postfix
     - "{{ postfix_packages }}"
 
-- name: Attempting to fetch postfix version from RPM database
-  tags: postfix
-  args:
-    warn: no
-  command: |
-    rpm -q --queryformat %{version} postfix
-  register: postfix_rpm
-  when: postfix_yum is success
-
-- name: Setting postfix_version fact
-  tags: postfix
-  set_fact:
-    postfix_version: "{{ postfix_rpm.stdout }}"
-  when: postfix_rpm is success
-
-- name: Attempting to overlay postfix configurations
+- name: Attempting to import postfix configuration tasks
   tags: postfix
   become: true
-  template:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    owner: root
-    group: root
-    mode: "{{ item.mode }}"
-  notify: restart postfix
-  with_items:
-    - { src: main.cf.j2, dest: /etc/postfix/main.cf, mode: '0644' }
-  when: postfix_yum is success
-
-- name: Ensure that postfix is started and enabled on boot
-  tags: postfix
-  become: true
-  service:
-    enabled: yes
-    name: postfix
-    state: started
+  block:
+    - import_tasks: postfix_version.yml
+    - import_tasks: postfix_configuration.yml
+    - import_tasks: postfix_service.yml
   when: postfix_yum is success
 ...

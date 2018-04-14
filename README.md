@@ -1,6 +1,8 @@
 # ansible-role-postfix
 
 [![Build Status](https://travis-ci.org/linuxhq/ansible-role-postfix.svg?branch=master)](https://travis-ci.org/linuxhq/ansible-role-postfix)
+[![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-postfix-blue.svg?style=flat)](https://galaxy.ansible.com/linuxhq/postfix)
+[![License](https://img.shields.io/badge/license-GPLv3-brightgreen.svg?style=flat)](COPYING)
 
 RHEL/CentOS - A free and open-source mail transfer agent
 
@@ -12,6 +14,7 @@ None
 
 Available variables are listed below, along with default values:
 
+    postfix_generic_maps: {}
     postfix_packages: []
     postfix_parameters:
       alias_database: 'hash:/etc/aliases'
@@ -48,6 +51,8 @@ None
     - hosts: servers
       roles:
         - role: linuxhq.postfix
+          postfix_generic_maps:
+            root: email@address
           postfix_packages:
             - cyrus-sasl
             - cyrus-sasl-lib
@@ -57,6 +62,8 @@ None
             smtp_sasl_password_maps: 'hash:/etc/postfix/sasl_passwd'
             smtp_sasl_security_options: noanonymous
             smtp_use_tls: True
+          postfix_sasl_username: email@address
+          postfix_sasl_password: kkpgfccailg5c
 
 ## License
 
