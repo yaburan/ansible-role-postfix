@@ -6,6 +6,7 @@
     owner: root
     group: root
     mode: 0644
+  register: postfix_template
   notify: restart postfix
 
 - name: Attempting to overlay postfix generic maps, if applicable

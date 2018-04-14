@@ -4,4 +4,5 @@
     enabled: yes
     name: postfix
     state: started
+  when: postfix_template is success
 ...
