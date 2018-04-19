@@ -9,7 +9,7 @@ postfix_parameters:
   data_directory: /var/lib/postfix
   debug_peer_level: 2
   debugger_command: 'PATH=/bin:/usr/bin:/usr/local/bin:/usr/X11R6/bin ddd $daemon_directory/$process_name $process_id & sleep 5'
-  html_directory: true
+  html_directory: false
   inet_interfaces: localhost
   inet_protocols: all
   mail_owner: postfix
