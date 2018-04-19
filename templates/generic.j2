@@ -1,4 +1,5 @@
 # {{ ansible_managed }}
+# postfix_generic_maps: {{ postfix_generic_maps }}|length
 
 {% for pgmk, pgmv in postfix_generic_maps.iteritems()|sort %}
 {{ pgmk }}	{{ pgmv }}
