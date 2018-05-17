@@ -6,6 +6,7 @@
   command: |
     rpm -q --queryformat %{version} postfix
   register: postfix_rpm
+  changed_when: false
 
 - name: Setting postfix_version fact
   set_fact:
