@@ -78,7 +78,7 @@
     owner: root
     group: root
     mode: 0600
-  when: postfix_parameters.sender_canonical is defined
+  when: postfix_parameters.+sender_canonical_maps is defined
 
 - name: Ensure that postfix is started and enabled on boot
   tags: postfix
