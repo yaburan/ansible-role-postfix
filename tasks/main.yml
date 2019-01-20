@@ -11,6 +11,7 @@
     - "{{ postfix_packages }}"
 
 - name: Attempting to fetch postfix version from RPM database
+  tags: postfix
   check_mode: false
   args:
     warn: no
@@ -20,6 +21,7 @@
   changed_when: false
 
 - name: Attempting to set postfix_version fact
+  tags: postfix
   set_fact:
     postfix_version: "{{ postfix_rpm.stdout }}"
   when:
@@ -27,6 +29,7 @@
     - postfix_rpm is success
 
 - name: Attempting to overlay postfix configurations
+  tags: postfix
   template:
     src: main.cf.j2
     dest: /etc/postfix/main.cf
@@ -37,6 +40,7 @@
   notify: restart postfix
 
 - name: Attempting to overlay postfix generic maps, if applicable
+  tags: postfix
   template:
     src: generic.j2
     dest: /etc/postfix/generic
@@ -47,6 +51,7 @@
   when: postfix_parameters.smtp_generic_maps is defined
 
 - name: Attempting to overlay postfix sasl password maps, if applicable
+  tags: postfix
   no_log: true
   template:
     src: sasl_passwd.j2
@@ -62,6 +67,7 @@
     - postfix_sasl_username is defined
 
 - name: Attempting to overlay postfix sender canonical regular expressions, if applicable
+  tags: postfix
   template:
     src: sender_canonical.j2
     dest: /etc/postfix/sender_canonical
@@ -71,6 +77,7 @@
   when: postfix_parameters.sender_canonical is defined
 
 - name: Ensure that postfix is started and enabled on boot
+  tags: postfix
   service:
     enabled: yes
     name: postfix
