@@ -3,9 +3,12 @@
   tags: postfix
   become: true
   yum:
-    name: [ 'postfix', '{{ postfix_packages }}' ]
+    name: "{{ item }}"
     state: present
   register: postfix_yum
+  loop:
+    - postfix
+    - "{{ postfix_packages }}"
 
 - name: Attempting to fetch postfix version from RPM database
   tags: postfix
@@ -27,6 +30,7 @@
 
 - name: Attempting to overlay postfix configurations
   tags: postfix
+  become: true
   template:
     src: main.cf.j2
     dest: /etc/postfix/main.cf
@@ -38,6 +42,7 @@
 
 - name: Attempting to overlay postfix generic maps, if applicable
   tags: postfix
+  become: true
   template:
     src: generic.j2
     dest: /etc/postfix/generic
@@ -49,6 +54,7 @@
 
 - name: Attempting to overlay postfix sasl password maps, if applicable
   tags: postfix
+  become: true
   no_log: true
   template:
     src: sasl_passwd.j2
@@ -65,6 +71,7 @@
 
 - name: Attempting to overlay postfix sender canonical regular expressions, if applicable
   tags: postfix
+  become: true
   template:
     src: sender_canonical.j2
     dest: /etc/postfix/sender_canonical
@@ -75,6 +82,7 @@
 
 - name: Ensure that postfix is started and enabled on boot
   tags: postfix
+  become: true
   service:
     enabled: yes
     name: postfix
