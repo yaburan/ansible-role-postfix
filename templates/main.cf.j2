@@ -1,13 +1,16 @@
 # {{ ansible_managed }}
+# postfix_parameters: {{ postfix_parameters|length }}
+{% if postfix_parameters|length > 0 %}
 
-{% for key, value in postfix_parameters.iteritems()|sort %}
-{%   if value is sameas true %}
+{%   for key, value in postfix_parameters.items()|sort %}
+{%     if value is sameas true %}
 {{ key }} = yes
-{%   elif value is sameas false %}
+{%     elif value is sameas false %}
 {{ key }} = no
-{%   elif value is string or value is number %}
+{%     elif value is string or value is number %}
 {{ key }} = {{ value }}
-{%   else %}
+{%     else %}
 {{ key }} = {{ value|join(', ') }}
-{%   endif %}
-{% endfor %}
+{%     endif %}
+{%   endfor %}
+{% endif %}

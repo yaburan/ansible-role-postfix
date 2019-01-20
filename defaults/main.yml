@@ -1,5 +1,5 @@
 ---
-postfix_generic_maps: {}
+postfix_generic_maps: []
 postfix_packages: []
 postfix_parameters:
   alias_database: 'hash:/etc/aliases'
@@ -26,4 +26,5 @@ postfix_parameters:
   setgid_group: postdrop
   queue_directory: /var/spool/postfix
   unknown_local_recipient_reject_code: 550
+postfix_sender_canonical: []
 ...

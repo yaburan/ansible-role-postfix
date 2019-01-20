@@ -14,7 +14,7 @@ None
 
 Available variables are listed below, along with default values:
 
-    postfix_generic_maps: {}
+    postfix_generic_maps: []
     postfix_packages: []
     postfix_parameters:
       alias_database: 'hash:/etc/aliases'
@@ -41,6 +41,7 @@ Available variables are listed below, along with default values:
       setgid_group: postdrop
       queue_directory: /var/spool/postfix
       unknown_local_recipient_reject_code: 550
+    postfix_sender_canonical: []
 
 ## Dependencies
 
@@ -52,7 +53,8 @@ None
       roles:
         - role: linuxhq.postfix
           postfix_generic_maps:
-            root: email@address.com
+            - pattern: root
+              address: tkimball@linuxhq.org
           postfix_packages:
             - cyrus-sasl
             - cyrus-sasl-lib
@@ -85,8 +87,11 @@ None
             smtp_use_tls: true
             queue_directory: /var/spool/postfix
             unknown_local_recipient_reject_code: 550
-        postfix_sasl_password: v9bzc8emfbdqu
-        postfix_sasl_username: email@address.com
+        postfix_sasl_password: mzh3SfKATIYP22qlRKIQnw51
+        postfix_sasl_username: tkimball@linuxhq.org
+        postfix_sender_canonical:
+          - regexp: /.+/
+            address: tkimball@linuxhq.org
 
 ## License
 
