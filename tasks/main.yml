@@ -3,12 +3,9 @@
   tags: postfix
   become: true
   yum:
-    name: "{{ item }}"
+    name: [ 'postfix', '{{ postfix_packages }}' ]
     state: present
   register: postfix_yum
-  with_items:
-    - postfix
-    - "{{ postfix_packages }}"
 
 - name: Attempting to fetch postfix version from RPM database
   tags: postfix
