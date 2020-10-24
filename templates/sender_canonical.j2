@@ -3,8 +3,8 @@
 {% if postfix_sender_canonical|length > 0 %}
 
 {%   for psc in postfix_sender_canonical|sort %}
-{%     if psc.regexp is defined and psc.address is defined %}
-{{ psc.regexp }}	{{ psc.address }}
+{%     if psc.pattern is defined and psc.address is defined %}
+{{ psc.pattern }}	{{ psc.address }}
 {%     endif %}
 {%   endfor %}
 {% endif %}
