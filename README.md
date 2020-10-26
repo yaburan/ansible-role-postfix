@@ -90,7 +90,7 @@ None
         postfix_sasl_password: mzh3SfKATIYP22qlRKIQnw51
         postfix_sasl_username: tkimball@linuxhq.org
         postfix_sender_canonical:
-          - regexp: /.+/
+          - pattern: /.+/
             address: tkimball@linuxhq.org
 
 ## License

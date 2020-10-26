@@ -1,5 +1,5 @@
 ---
-- name: Ensure that the postfix packages are installed
+- name: Ensure that the postfix packages are present
   tags: postfix
   become: true
   yum:
@@ -10,7 +10,7 @@
     - postfix
     - "{{ postfix_packages }}"
 
-- name: Attempting to fetch postfix version from RPM database
+- name: Fetch postfix version from RPM database
   tags: postfix
   check_mode: false
   args:
@@ -20,15 +20,19 @@
   register: postfix_rpm
   changed_when: false
 
-- name: Attempting to set postfix_version fact
+- name: Set postfix database and version facts
   tags: postfix
   set_fact:
+    postfix_databases:
+      - btree
+      - cdb
+      - dbm
+      - hash
+      - fail
+      - sdbm
     postfix_version: "{{ postfix_rpm.stdout }}"
-  when:
-    - postfix_rpm is not skipped
-    - postfix_rpm is success
 
-- name: Attempting to overlay postfix configurations
+- name: Overlay postfix configurations
   tags: postfix
   become: true
   template:
@@ -40,7 +44,7 @@
   register: postfix_template
   notify: restart postfix
 
-- name: Attempting to overlay postfix generic maps, if applicable
+- name: Overlay postfix generic maps
   tags: postfix
   become: true
   template:
@@ -52,7 +56,7 @@
   notify: postmap generic
   when: postfix_parameters.smtp_generic_maps is defined
 
-- name: Attempting to overlay postfix sasl password maps, if applicable
+- name: Overlay postfix sasl password maps
   tags: postfix
   become: true
   no_log: true
@@ -69,7 +73,7 @@
     - postfix_sasl_password is defined
     - postfix_sasl_username is defined
 
-- name: Attempting to overlay postfix sender canonical regular expressions, if applicable
+- name: Overlay postfix sender canonical maps
   tags: postfix
   become: true
   template:
@@ -78,6 +82,7 @@
     owner: root
     group: root
     mode: 0600
+  notify: postmap sender_canonical
   when: postfix_parameters.sender_canonical_maps is defined
 
 - name: Ensure that postfix is started and enabled on boot
@@ -87,7 +92,4 @@
     enabled: yes
     name: postfix
     state: started
-  when:
-    - postfix_template is success
-    - postfix_yum is success
 ...
