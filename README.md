@@ -42,6 +42,7 @@ Available variables are listed below, along with default values:
       queue_directory: /var/spool/postfix
       unknown_local_recipient_reject_code: 550
     postfix_sender_canonical: []
+    postfix_recipient_canonical: []
 
 ## Dependencies
 

@@ -85,6 +85,18 @@
   notify: postmap sender_canonical
   when: postfix_parameters.sender_canonical_maps is defined
 
+- name: Overlay postfix recipient canonical maps
+  tags: postfix
+  become: true
+  template:
+    src: recipient_canonical.j2
+    dest: /etc/postfix/recipient_canonical
+    owner: root
+    group: root
+    mode: 0600
+  notify: postmap recipient_canonical
+  when: postfix_parameters.recipient_canonical_maps is defined
+
 - name: Ensure that postfix is started and enabled on boot
   tags: postfix
   become: true
