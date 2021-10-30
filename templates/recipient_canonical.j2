@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+# postfix_recipient_canonical: {{ postfix_recipient_canonical|length }}
+{% if postfix_recipient_canonical|length > 0 %}
+
+{%   for psc in postfix_recipient_canonical|sort %}
+{%     if psc.pattern is defined and psc.address is defined %}
+{{ psc.pattern }}	{{ psc.address }}
+{%     endif %}
+{%   endfor %}
+{% endif %}
