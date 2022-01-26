@@ -43,7 +43,7 @@ Available variables are listed below, along with default values:
       unknown_local_recipient_reject_code: 550
     postfix_sender_canonical: []
     postfix_recipient_canonical: []
-    recipient_bcc_maps: []
+    postfix_recipient_bcc: []
 
 ## Dependencies
 
@@ -89,6 +89,9 @@ None
             smtp_use_tls: true
             queue_directory: /var/spool/postfix
             unknown_local_recipient_reject_code: 550
+            sender_canonical_maps: hash:/etc/postfix/sender_canonical
+            recipient_canonical_maps: hash:/etc/postfix/recipient_canonical
+            postfix_recipient_bcc_maps: hash:/etc/postfix/recipient_bcc
         postfix_sasl_password: mzh3SfKATIYP22qlRKIQnw51
         postfix_sasl_username: tkimball@linuxhq.org
         postfix_sender_canonical:
@@ -97,7 +100,7 @@ None
         postfix_recipient_canonical:
           - pattern: /.+/
             address: tkimball@linuxhq.org
-        recipient_bcc_maps:
+        postfix_recipient_bcc:
           - pattern: /.+/
             address: tkimball@linuxhq.org
 
