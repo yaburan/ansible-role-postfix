@@ -97,6 +97,18 @@
   notify: postmap recipient_canonical
   when: postfix_parameters.recipient_canonical_maps is defined
 
+- name: Overlay postfix recipient bcc maps
+  tags: postfix
+  become: true
+  template:
+    src: recipient_bcc.j2
+    dest: /etc/postfix/recipient_bcc
+    owner: root
+    group: root
+    mode: 0600
+  notify: postmap recipient_bcc
+  when: postfix_parameters.recipient_bcc_maps is defined
+
 - name: Ensure that postfix is started and enabled on boot
   tags: postfix
   become: true

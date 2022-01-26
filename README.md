@@ -43,6 +43,7 @@ Available variables are listed below, along with default values:
       unknown_local_recipient_reject_code: 550
     postfix_sender_canonical: []
     postfix_recipient_canonical: []
+    recipient_bcc_maps: []
 
 ## Dependencies
 
@@ -91,6 +92,12 @@ None
         postfix_sasl_password: mzh3SfKATIYP22qlRKIQnw51
         postfix_sasl_username: tkimball@linuxhq.org
         postfix_sender_canonical:
+          - pattern: /.+/
+            address: tkimball@linuxhq.org
+        postfix_recipient_canonical:
+          - pattern: /.+/
+            address: tkimball@linuxhq.org
+        recipient_bcc_maps:
           - pattern: /.+/
             address: tkimball@linuxhq.org
 
