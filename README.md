@@ -91,7 +91,7 @@ None
             unknown_local_recipient_reject_code: 550
             sender_canonical_maps: hash:/etc/postfix/sender_canonical
             recipient_canonical_maps: hash:/etc/postfix/recipient_canonical
-            postfix_recipient_bcc_maps: hash:/etc/postfix/recipient_bcc
+            recipient_bcc_maps: hash:/etc/postfix/recipient_bcc
         postfix_sasl_password: mzh3SfKATIYP22qlRKIQnw51
         postfix_sasl_username: tkimball@linuxhq.org
         postfix_sender_canonical:
